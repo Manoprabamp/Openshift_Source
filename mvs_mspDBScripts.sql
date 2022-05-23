@@ -422,7 +422,7 @@ CREATE TRIGGER reg_verify_trigger
 
 insert into public.userdetails (sno,userid,password,firstname_en,middle_name,
 lastname_en,contactnumber,activestatus,belongs_to,entered_date,email,designation,
-organisation,verifycode_pwd,isloggedin,user_approval) values(1,'00001','superadmin@gmail.com',
+organisation,verifycode_pwd,isloggedin,user_approval) values(1,'00001','0e7517141fb53f21ee439b355b5a1d0a',
 'super','default','admin','1234567898','1','Admin','2021-02-04 17:50:58.47','superadmin@gmail.com','ADMIN',
-'MSP','superadmin@gamil.com','0','approved')
+'MSP','Admin@123','0','approved')
 ==========================================
