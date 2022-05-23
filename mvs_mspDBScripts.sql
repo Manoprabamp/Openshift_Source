@@ -1,6 +1,5 @@
--- Database: mvs
+-------mvs--
 
--- DROP DATABASE mvs;
 
 CREATE DATABASE mvs
     WITH 
@@ -19,6 +18,95 @@ GRANT CONNECT ON DATABASE mvs TO readaccess;
 
 
 -------------------------------------------------
+-------------------------------------------------
+-- SEQUENCE: public.abis_json_id_seq
+
+-- DROP SEQUENCE public.abis_json_id_seq;
+
+CREATE SEQUENCE public.abis_json_id_seq
+    INCREMENT 1
+    START 1
+    MINVALUE 1
+    MAXVALUE 9223372036854775807
+    CACHE 1;
+
+ALTER SEQUENCE public.abis_json_id_seq
+    OWNER TO postgres;
+-------------------------------------------------
+	-- SEQUENCE: public.data_share_api_sno_seq
+
+-- DROP SEQUENCE public.data_share_api_sno_seq;
+
+CREATE SEQUENCE public.data_share_api_sno_seq
+    INCREMENT 1
+    START 1
+    MINVALUE 1
+    MAXVALUE 9223372036854775807
+    CACHE 1;
+
+ALTER SEQUENCE public.data_share_api_sno_seq
+    OWNER TO postgres;
+-------------------------------------------------
+	-- SEQUENCE: public.hibernate_sequence
+
+-- DROP SEQUENCE public.hibernate_sequence;
+
+CREATE SEQUENCE public.hibernate_sequence
+    INCREMENT 1
+    START 1
+    MINVALUE 1
+    MAXVALUE 9223372036854775807
+    CACHE 1;
+
+ALTER SEQUENCE public.hibernate_sequence
+    OWNER TO postgres;
+-------------------------------------------------
+	-- SEQUENCE: public.mv_json_id_seq
+
+-- DROP SEQUENCE public.mv_json_id_seq;
+
+CREATE SEQUENCE public.mv_json_id_seq
+    INCREMENT 1
+    START 1
+    MINVALUE 1
+    MAXVALUE 9223372036854775807
+    CACHE 1;
+
+ALTER SEQUENCE public.mv_json_id_seq
+    OWNER TO postgres;
+-------------------------------------------------
+	-- SEQUENCE: public.mv_json_new_id_seq
+
+-- DROP SEQUENCE public.mv_json_new_id_seq;
+
+CREATE SEQUENCE public.mv_json_new_id_seq
+    INCREMENT 1
+    START 1
+    MINVALUE 1
+    MAXVALUE 9223372036854775807
+    CACHE 1;
+
+ALTER SEQUENCE public.mv_json_new_id_seq
+    OWNER TO postgres;
+-------------------------------------------------
+	-- SEQUENCE: public.sno_seq
+
+-- DROP SEQUENCE public.sno_seq;
+
+CREATE SEQUENCE public.sno_seq
+    INCREMENT 1
+    START 1
+    MINVALUE 1
+    MAXVALUE 9223372036854775807
+    CACHE 1;
+
+ALTER SEQUENCE public.sno_seq
+    OWNER TO postgres;
+
+
+
+
+
 -- Table: public.abis_json
 
 -- DROP TABLE public.abis_json;
@@ -191,16 +279,7 @@ GRANT ALL ON TABLE public.mv_json TO postgres;
 
 GRANT SELECT ON TABLE public.mv_json TO readaccess;
 
--- Trigger: reg_verify_trigger
 
--- DROP TRIGGER reg_verify_trigger ON public.mv_json;
-
-CREATE TRIGGER reg_verify_trigger
-    AFTER INSERT
-    ON public.mv_json
-    FOR EACH ROW
-    EXECUTE FUNCTION public.reg_verify_pro();
--------------------------------------------------
 	-- Table: public.response_mvs
 
 -- DROP TABLE public.response_mvs;
@@ -271,7 +350,6 @@ GRANT SELECT ON TABLE public.register_manual_verification TO readaccess;
 -- Table: public.userdetails
 
 -- DROP TABLE public.userdetails;
-
 CREATE TABLE IF NOT EXISTS public.userdetails
 (
     sno integer NOT NULL,
@@ -286,32 +364,25 @@ CREATE TABLE IF NOT EXISTS public.userdetails
     entered_by character varying(12) COLLATE pg_catalog."default",
     entered_date timestamp without time zone,
     email character varying(50) COLLATE pg_catalog."default",
-    telephone_code integer,
-    mobile_code integer,
     login_status character varying(50) COLLATE pg_catalog."default",
     designation character varying(100) COLLATE pg_catalog."default",
-    department character varying(100) COLLATE pg_catalog."default",
     organisation character varying(300) COLLATE pg_catalog."default",
-    mobile_no character varying(50) COLLATE pg_catalog."default",
     verifycode_pwd character varying(100) COLLATE pg_catalog."default",
-    title integer,
     isloggedin character(1) COLLATE pg_catalog."default",
     login_time timestamp without time zone,
     logout_time timestamp without time zone,
     login_from character varying(100) COLLATE pg_catalog."default",
-    national_id_document bytea,
-    licenseoffice_id integer,
-    leftthumb bytea,
-    leftthumb_raw bytea,
-    leftthumb_minituae bytea,
     user_approval character varying(100) COLLATE pg_catalog."default",
     CONSTRAINT userdetails_pkey PRIMARY KEY (userid)
 )
-
+WITH (
+    OIDS = FALSE
+)
 TABLESPACE pg_default;
 
 ALTER TABLE public.userdetails
     OWNER to postgres;
+
 
 GRANT ALL ON TABLE public.userdetails TO postgres;
 
@@ -335,88 +406,23 @@ $BODY$;
 
 ALTER FUNCTION public.reg_verify_pro()
     OWNER TO postgres;
+---------------------------------------------------------
 
+-- Trigger: reg_verify_trigger
+
+-- DROP TRIGGER reg_verify_trigger ON public.mv_json;
+
+CREATE TRIGGER reg_verify_trigger
+    AFTER INSERT
+    ON public.mv_json
+    FOR EACH ROW
+    EXECUTE FUNCTION public.reg_verify_pro();
 -------------------------------------------------
--- SEQUENCE: public.abis_json_id_seq
+-- Inser default user
 
--- DROP SEQUENCE public.abis_json_id_seq;
-
-CREATE SEQUENCE public.abis_json_id_seq
-    INCREMENT 1
-    START 1
-    MINVALUE 1
-    MAXVALUE 9223372036854775807
-    CACHE 1;
-
-ALTER SEQUENCE public.abis_json_id_seq
-    OWNER TO postgres;
--------------------------------------------------
-	-- SEQUENCE: public.data_share_api_sno_seq
-
--- DROP SEQUENCE public.data_share_api_sno_seq;
-
-CREATE SEQUENCE public.data_share_api_sno_seq
-    INCREMENT 1
-    START 1
-    MINVALUE 1
-    MAXVALUE 9223372036854775807
-    CACHE 1;
-
-ALTER SEQUENCE public.data_share_api_sno_seq
-    OWNER TO postgres;
--------------------------------------------------
-	-- SEQUENCE: public.hibernate_sequence
-
--- DROP SEQUENCE public.hibernate_sequence;
-
-CREATE SEQUENCE public.hibernate_sequence
-    INCREMENT 1
-    START 1
-    MINVALUE 1
-    MAXVALUE 9223372036854775807
-    CACHE 1;
-
-ALTER SEQUENCE public.hibernate_sequence
-    OWNER TO postgres;
--------------------------------------------------
-	-- SEQUENCE: public.mv_json_id_seq
-
--- DROP SEQUENCE public.mv_json_id_seq;
-
-CREATE SEQUENCE public.mv_json_id_seq
-    INCREMENT 1
-    START 1
-    MINVALUE 1
-    MAXVALUE 9223372036854775807
-    CACHE 1;
-
-ALTER SEQUENCE public.mv_json_id_seq
-    OWNER TO postgres;
--------------------------------------------------
-	-- SEQUENCE: public.mv_json_new_id_seq
-
--- DROP SEQUENCE public.mv_json_new_id_seq;
-
-CREATE SEQUENCE public.mv_json_new_id_seq
-    INCREMENT 1
-    START 1
-    MINVALUE 1
-    MAXVALUE 9223372036854775807
-    CACHE 1;
-
-ALTER SEQUENCE public.mv_json_new_id_seq
-    OWNER TO postgres;
--------------------------------------------------
-	-- SEQUENCE: public.sno_seq
-
--- DROP SEQUENCE public.sno_seq;
-
-CREATE SEQUENCE public.sno_seq
-    INCREMENT 1
-    START 1
-    MINVALUE 1
-    MAXVALUE 9223372036854775807
-    CACHE 1;
-
-ALTER SEQUENCE public.sno_seq
-    OWNER TO postgres;
+insert into public.userdetails (sno,userid,password,firstname_en,middle_name,
+lastname_en,contactnumber,activestatus,belongs_to,entered_date,email,designation,
+organisation,verifycode_pwd,isloggedin,user_approval) values(1,'00001','superadmin@gmail.com',
+'super','default','admin','1234567898','1','Admin','2021-02-04 17:50:58.47','superadmin@gmail.com','ADMIN',
+'MSP','superadmin@gamil.com','0','approved')
+==========================================
